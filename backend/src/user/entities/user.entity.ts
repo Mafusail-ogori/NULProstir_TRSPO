@@ -1,4 +1,8 @@
 import { Article } from '../../article/entities/article.entity';
+import { Gender } from '../libs/enums/user.gender';
+import { GraduationLevel } from '../libs/enums/user.graduation-level';
+import { Role } from '../libs/enums/user.role';
+import { Status } from '../libs/enums/user.status';
 import { Chair } from './chair.entity';
 import {
   Entity,
@@ -11,42 +15,6 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
-
-enum Gender {
-  Male = 'male',
-  Female = 'female',
-  NonBinary = 'non-binary',
-  Transgender = 'transgender',
-  GenderQueer = 'genderqueer',
-  AGender = 'agender',
-  BiGender = 'bigender',
-  GenderFluid = 'genderfluid',
-  Intersex = 'intersex',
-  TwoSpirit = 'two-spirit',
-  Other = 'other',
-}
-
-enum Role {
-  Creator = 'creator',
-  User = 'user',
-  Moderator = 'moderator',
-  Admin = 'admin',
-}
-
-enum Status {
-  Online = 'online',
-  Offline = 'offline',
-  Busy = 'busy',
-  DnD = 'dnd',
-  Invisible = 'invisible',
-}
-
-enum GraduationLevel {
-  Bachelor = 'bachelor',
-  Master = 'master',
-  PhD = 'phd',
-  Postgraduate = 'postgraduate',
-}
 
 @Entity()
 export class User {
@@ -62,9 +30,9 @@ export class User {
   birthDate: Date;
   @Column()
   passwordHash: string;
-  @Column()
+  @Column({ nullable: true })
   profileDescription: string;
-  @Column()
+  @Column({ nullable: true })
   locationHash: string;
   @CreateDateColumn()
   createdAt: Date;
@@ -73,28 +41,36 @@ export class User {
   @Column({
     type: 'enum',
     enum: Gender,
+    nullable: true,
   })
   gender: Gender;
   @Column({
     type: 'enum',
     enum: Status,
+    nullable: true,
   })
   status: Status;
   @Column({
     type: 'enum',
     enum: Role,
+    nullable: true,
   })
   role: Role;
   @Column({
     type: 'enum',
     enum: GraduationLevel,
+    nullable: true,
   })
   graduationLevel: GraduationLevel;
-  @OneToMany(() => Article, (article: Article) => article.user)
+  @OneToMany(() => Article, (article: Article) => article.user, {
+    nullable: true,
+  })
   articles: Article[];
-  @ManyToOne(() => Chair, (chair: Chair) => chair.users)
+  @ManyToOne(() => Chair, (chair: Chair) => chair.users, { nullable: true })
   chair: Chair;
-  @ManyToMany(() => Article, (article: Article) => article.articlesUsers)
+  @ManyToMany(() => Article, (article: Article) => article.articlesUsers, {
+    nullable: true,
+  })
   @JoinTable()
   usersArticles: Article[];
 }

@@ -16,7 +16,7 @@ export class Chair {
   @Column()
   name: string;
   @ManyToOne(() => Institute, (institute: Institute) => institute.chairs)
-  @JoinColumn({ name: 'institute_id' })
+  @JoinColumn({ name: 'instituteId' })
   institute: Institute;
   @OneToMany(() => User, (user: User) => user.chair)
   users: User[];

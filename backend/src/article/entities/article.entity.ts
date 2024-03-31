@@ -44,7 +44,7 @@ export class Article {
   target: ArticleTarget;
 
   @ManyToOne(() => User, (user: User) => user.articles)
-  @JoinColumn({ name: 'creator_id' })
+  @JoinColumn({ name: 'creatorId' })
   user: User;
   @ManyToMany(() => User, (user: User) => user.usersArticles)
   articlesUsers: User[];
