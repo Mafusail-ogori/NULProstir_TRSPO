@@ -71,6 +71,6 @@ export class User {
   @ManyToMany(() => Article, (article: Article) => article.articlesUsers, {
     nullable: true,
   })
-  @JoinTable()
+  @JoinTable({ name: 'users_articles' })
   usersArticles: Article[];
 }

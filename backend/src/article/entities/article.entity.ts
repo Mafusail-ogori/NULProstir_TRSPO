@@ -8,6 +8,7 @@ import {
   ManyToOne,
   JoinColumn,
   ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 enum ArticleTarget {
@@ -46,6 +47,7 @@ export class Article {
   @ManyToOne(() => User, (user: User) => user.articles)
   @JoinColumn({ name: 'creatorId' })
   user: User;
+
   @ManyToMany(() => User, (user: User) => user.usersArticles)
   articlesUsers: User[];
 }

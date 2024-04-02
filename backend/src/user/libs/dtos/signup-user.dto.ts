@@ -2,7 +2,7 @@ import { IsEmail, IsEnum, IsString, MinLength } from 'class-validator';
 import { Gender } from '../enums/user.gender';
 import { GraduationLevel } from '../enums/user.graduation-level';
 
-export class CreateUserDto {
+export class SignUpUserDto {
   @IsEmail()
   email: string;
   @IsString()

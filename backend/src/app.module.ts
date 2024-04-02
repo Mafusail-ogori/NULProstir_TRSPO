@@ -9,6 +9,9 @@ import { Article } from './article/entities/article.entity';
 import { User } from './user/entities/user.entity';
 import { Chair } from './user/entities/chair.entity';
 import { Institute } from './user/entities/institute.entity';
+import { Subject } from './article/entities/subject.entity';
+import { Lecturer } from './article/entities/lecturer.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -25,10 +28,11 @@ import { Institute } from './user/entities/institute.entity';
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
         synchronize: true,
-        entities: [Article, User, Chair, Institute],
+        entities: [Article, User, Chair, Institute, Subject, Lecturer],
       }),
       inject: [ConfigService],
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -10,5 +10,6 @@ import { Chair } from './entities/chair.entity';
   imports: [TypeOrmModule.forFeature([User, Institute, Chair])],
   controllers: [UserController],
   providers: [UserService],
+  exports: [UserService],
 })
 export class UserModule {}
