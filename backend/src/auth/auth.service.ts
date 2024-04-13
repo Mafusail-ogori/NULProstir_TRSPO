@@ -1,20 +1,22 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { SignInUserDto } from '../user/libs/dtos/signin-user.dto';
 import { UserService } from '../user/user.service';
 import * as argon2 from 'argon2';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private jwtService: JwtService,
+  ) {}
 
-  async validateUser(signInUserDto: SignInUserDto) {
-    const user = await this.userService.findOne(signInUserDto.email);
-    const passwordIsMatch = await argon2.verify(
-      user.passwordHash,
-      signInUserDto.password,
-    );
+  async signIn(email: string, password: string) {
+    const user = await this.userService.findOne(email);
+    const passwordIsMatch = await argon2.verify(user.passwordHash, password);
     if (user && passwordIsMatch) {
-      return user;
+      return {
+        token: this.jwtService.sign({ id: user.id, email: user.email }),
+      };
     }
     throw new UnauthorizedException('user or password are incorrect');
   }

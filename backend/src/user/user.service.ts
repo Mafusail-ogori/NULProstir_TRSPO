@@ -2,10 +2,10 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { SignUpUserDto } from './libs/dtos/signup-user.dto';
 import * as argon2 from 'argon2';
 import { Role } from './libs/enums/user.role';
 import { Status } from './libs/enums/user.status';
+import { SignUpUser } from './libs/types/signup-user.type';
 
 @Injectable()
 export class UserService {
@@ -13,27 +13,27 @@ export class UserService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  async create(createUserDto: SignUpUserDto) {
+  async create(createUser: SignUpUser) {
     const existUser = await this.userRepository.findOne({
       where: {
-        email: createUserDto.email,
-        userName: createUserDto.userName,
+        email: createUser.email,
+        userName: createUser.userName,
       },
     });
     if (existUser) throw new BadRequestException('Duplicated Data');
 
-    const user = await this.userRepository.save({
-      fullName: createUserDto.fullName,
-      userName: createUserDto.userName,
-      email: createUserDto.email,
-      birthDate: createUserDto.birthDate,
-      passwordHash: await argon2.hash(createUserDto.password),
-      gender: createUserDto.gender,
+    await this.userRepository.save({
+      fullName: createUser.fullName,
+      userName: createUser.userName,
+      email: createUser.email,
+      birthDate: createUser.birthDate,
+      passwordHash: await argon2.hash(createUser.password),
+      gender: createUser.gender,
       status: Status.Online,
       role: Role.User,
-      graduationLevel: createUserDto.graduationLevel,
+      graduationLevel: createUser.graduationLevel,
     });
-    return { user };
+    return true;
   }
 
   async findOne(email: string) {

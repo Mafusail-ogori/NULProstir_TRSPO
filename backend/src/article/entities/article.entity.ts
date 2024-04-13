@@ -8,15 +8,8 @@ import {
   ManyToOne,
   JoinColumn,
   ManyToMany,
-  JoinTable,
 } from 'typeorm';
-
-enum ArticleTarget {
-  Entertainment = 'entertainment',
-  Event = 'event',
-  SubjectInfo = 'subject-info',
-  LecturerInfo = 'lecturer-info',
-}
+import { ArticleTarget } from '../libs/enums/article-target.enum';
 
 @Entity()
 export class Article {
@@ -31,11 +24,11 @@ export class Article {
   @UpdateDateColumn()
   modifiedAt: string;
   @Column()
-  startsAt: string;
+  startsAt: Date;
   @Column()
-  endsAt: string;
+  endsAt: Date;
   @Column()
-  participantMaxCount: string;
+  participantMaxCount: number;
   @Column()
   website: string;
   @Column({
@@ -44,9 +37,12 @@ export class Article {
   })
   target: ArticleTarget;
 
-  @ManyToOne(() => User, (user: User) => user.articles)
-  @JoinColumn({ name: 'creatorId' })
+  @ManyToOne(() => User, (user: User) => user.articles, { eager: true })
+  @JoinColumn({ name: 'creator' })
   user: User;
+
+  @Column({ nullable: true })
+  creatorId: string;
 
   @ManyToMany(() => User, (user: User) => user.usersArticles)
   articlesUsers: User[];
