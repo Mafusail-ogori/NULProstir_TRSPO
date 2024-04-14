@@ -47,5 +47,5 @@ export class Article {
   @JoinColumn({ name: 'creatorId' })
   user: User;
   @ManyToMany(() => User, (user: User) => user.usersArticles)
-  articlesUsers: User[];
+  articlesUsers: User[]; //test comment
 }
