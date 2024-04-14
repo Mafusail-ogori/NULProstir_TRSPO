@@ -8,5 +8,4 @@ export interface CreateArticle {
   participantMaxCount: number;
   websiteURL: string;
   target: ArticleTarget;
-  creatorId: string;
 }

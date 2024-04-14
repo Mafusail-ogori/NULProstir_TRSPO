@@ -30,7 +30,7 @@ export class Article {
   @Column()
   participantMaxCount: number;
   @Column()
-  website: string;
+  websiteURL: string;
   @Column({
     type: 'enum',
     enum: ArticleTarget,

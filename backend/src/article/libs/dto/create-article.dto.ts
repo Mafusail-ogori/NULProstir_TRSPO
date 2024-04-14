@@ -1,4 +1,4 @@
-import { IsEnum, IsNumber, IsString } from 'class-validator';
+import { IsEnum, IsNumber, IsString, IsUrl, Min, Max } from 'class-validator';
 import { ArticleTarget } from '../enums/article-target.enum';
 
 export class CreateArticleDto {
@@ -11,11 +11,11 @@ export class CreateArticleDto {
   @IsString()
   endsAt: Date;
   @IsNumber()
+  @Min(0)
+  @Max(500)
   participantMaxCount: number;
-  @IsString()
+  @IsUrl()
   websiteURL: string;
   @IsEnum(ArticleTarget)
   target: ArticleTarget;
-  @IsString()
-  creatorId: string;
 }
