@@ -12,6 +12,7 @@ import { Institute } from './user/entities/institute.entity';
 import { Subject } from './article/entities/subject.entity';
 import { Lecturer } from './article/entities/lecturer.entity';
 import { AuthModule } from './auth/auth.module';
+import { EventModule } from './event/event.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { AuthModule } from './auth/auth.module';
       inject: [ConfigService],
     }),
     AuthModule,
+    EventModule,
   ],
   controllers: [AppController],
   providers: [AppService],

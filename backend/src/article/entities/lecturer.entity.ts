@@ -8,8 +8,10 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Article } from './article.entity';
 
 @Entity()
 export class Lecturer {
@@ -27,7 +29,9 @@ export class Lecturer {
   @ManyToOne(() => Chair, (chair: Chair) => chair.lecturers)
   @JoinColumn({ name: 'chair_id' })
   chair: Chair;
-  @ManyToMany(() => Subject, (subject: Subject) => subject)
+  @ManyToMany(() => Subject, (subject: Subject) => subject.subjectsLecturers)
   @JoinTable({ name: 'lecturers_subjects' })
   lecturersSubjects: Subject[];
+  @OneToMany(() => Article, (article: Article) => article.lecturer)
+  articles: Article[];
 }

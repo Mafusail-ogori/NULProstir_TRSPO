@@ -6,8 +6,10 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   ManyToMany,
+  OneToMany,
 } from 'typeorm';
 import { Lecturer } from './lecturer.entity';
+import { Article } from './article.entity';
 
 @Entity()
 export class Subject {
@@ -25,4 +27,6 @@ export class Subject {
     (lecturer: Lecturer) => lecturer.lecturersSubjects,
   )
   subjectsLecturers: Lecturer[];
+  @OneToMany(() => Article, (article: Article) => article.subject)
+  articles: Article[];
 }

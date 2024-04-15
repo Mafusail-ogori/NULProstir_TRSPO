@@ -1,19 +1,15 @@
 import { Module } from '@nestjs/common';
-import { ArticleController } from './article.controller';
-import { ArticleService } from './article.service';
+import { EventService } from './event.service';
+import { EventController } from './event.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Article } from './entities/article.entity';
+import { Event } from './entities/event.entity';
 import { AuthModule } from '../auth/auth.module';
-import { AuthUserGuard } from '../auth/guards/auth.guard';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { Lecturer } from './entities/lecturer.entity';
-import { Subject } from './entities/subject.entity';
-import { Post } from './entities/post.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Article, Lecturer, Post, Subject]),
+    TypeOrmModule.forFeature([Event]),
     AuthModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
@@ -27,7 +23,7 @@ import { Post } from './entities/post.entity';
     }),
     ConfigModule.forRoot(),
   ],
-  controllers: [ArticleController],
-  providers: [ArticleService, AuthUserGuard],
+  providers: [EventService],
+  controllers: [EventController],
 })
-export class ArticleModule {}
+export class EventModule {}

@@ -68,9 +68,4 @@ export class User {
   articles: Article[];
   @ManyToOne(() => Chair, (chair: Chair) => chair.users, { nullable: true })
   chair: Chair;
-  @ManyToMany(() => Article, (article: Article) => article.articlesUsers, {
-    nullable: true,
-  })
-  @JoinTable({ name: 'users_articles' })
-  usersArticles: Article[];
 }

@@ -10,6 +10,7 @@ import { Institute } from './institute.entity';
 import { User } from './user.entity';
 import { Subject } from '../../article/entities/subject.entity';
 import { Lecturer } from '../../article/entities/lecturer.entity';
+import { Article } from '../../article/entities/article.entity';
 
 @Entity()
 export class Chair {
@@ -26,4 +27,6 @@ export class Chair {
   subjects: Subject[];
   @OneToMany(() => Lecturer, (lecturer: Lecturer) => lecturer.chair)
   lecturers: Lecturer[];
+  @OneToMany(() => Article, (article: Article) => article.chair)
+  articles: Article[];
 }
