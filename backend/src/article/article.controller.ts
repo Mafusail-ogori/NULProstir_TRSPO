@@ -26,7 +26,7 @@ export class ArticleController {
 
   @UseGuards(AuthUserGuard)
   @Get('/get-article-by-user-id')
-  fundArticleByUserId(@Request() request: any) {
+  findArticleByUserId(@Request() request: any) {
     return this.articleService.findArticlesByUserId(request.userId);
   }
 

@@ -57,9 +57,8 @@ export class ArticleService {
     });
     if (!existArticle) {
       throw new NotFoundException('Article to delete not found');
-    } else {
-      return await this.articleRepository.delete(articleId);
     }
+    return await this.articleRepository.delete(articleId);
   }
 
   async updateArticleByUserId(updateArticle: UpdateArticle, userId: string) {

@@ -1,3 +1,4 @@
+import { Event } from '../../event/entities/event.entity';
 import { Article } from '../../article/entities/article.entity';
 import { Gender } from '../libs/enums/user.gender';
 import { GraduationLevel } from '../libs/enums/user.graduation-level';
@@ -12,8 +13,6 @@ import {
   UpdateDateColumn,
   OneToMany,
   ManyToOne,
-  ManyToMany,
-  JoinTable,
 } from 'typeorm';
 
 @Entity()
@@ -68,4 +67,6 @@ export class User {
   articles: Article[];
   @ManyToOne(() => Chair, (chair: Chair) => chair.users, { nullable: true })
   chair: Chair;
+  @OneToMany(() => Event, (event: Event) => event.creator)
+  events: Event[];
 }

@@ -1,5 +1,6 @@
+import { User } from '../../user/entities/user.entity';
 import { Post } from '../../article/entities/post.entity';
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 
 @Entity()
 export class Event extends Post {
@@ -7,8 +8,13 @@ export class Event extends Post {
   startAt: Date;
   @Column()
   endsAt: Date;
-  @Column()
+  @Column({ nullable: true })
   participantMaxCount: number;
   @Column({ nullable: true })
   websiteURL: string;
+  @ManyToOne(() => User, (user: User) => user.events, { eager: true })
+  @JoinColumn({ name: 'user' })
+  creator: User;
+  @Column()
+  creatorId: string;
 }

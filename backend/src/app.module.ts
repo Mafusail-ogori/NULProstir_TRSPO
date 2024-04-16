@@ -13,6 +13,8 @@ import { Subject } from './article/entities/subject.entity';
 import { Lecturer } from './article/entities/lecturer.entity';
 import { AuthModule } from './auth/auth.module';
 import { EventModule } from './event/event.module';
+import { Event } from './event/entities/event.entity';
+import { Post } from './article/entities/post.entity';
 
 @Module({
   imports: [
@@ -29,7 +31,18 @@ import { EventModule } from './event/event.module';
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
         synchronize: true,
-        entities: [Article, User, Chair, Institute, Subject, Lecturer],
+        entities: [
+          Article,
+          User,
+          Chair,
+          Institute,
+          Subject,
+          Lecturer,
+          Event,
+          Post,
+          Article,
+          Subject,
+        ],
       }),
       inject: [ConfigService],
     }),

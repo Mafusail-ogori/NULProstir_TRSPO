@@ -1,7 +1,7 @@
-import { IsString } from 'class-validator';
+import { IsUUID } from 'class-validator';
 import { CreateArticleDto } from './create-article.dto';
 
 export class UpdateArticleDto extends CreateArticleDto {
-  @IsString()
+  @IsUUID()
   id: string;
 }
