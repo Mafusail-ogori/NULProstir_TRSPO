@@ -33,11 +33,11 @@ export class ArticleController {
   @UseGuards(AuthUserGuard)
   @Delete('/delete-article-by-user-id')
   deleteArticleByUserId(
-    @Body() articleId: DeleteArticleDto,
+    @Body() deleteArticleDto: DeleteArticleDto,
     @Request() request: any,
   ) {
     return this.articleService.deleteArticleByUserId(
-      articleId.articleId,
+      deleteArticleDto.articleId,
       request.userId,
     );
   }

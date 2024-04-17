@@ -5,7 +5,7 @@ import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 @Entity()
 export class Event extends Post {
   @Column()
-  startAt: Date;
+  startsAt: Date;
   @Column()
   endsAt: Date;
   @Column({ nullable: true })
