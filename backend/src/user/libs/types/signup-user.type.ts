@@ -6,7 +6,7 @@ export interface SignUpUser {
   fullName: string;
   userName: string;
   birthDate: Date;
-  password: string;
+  passwordHash: string;
   gender: Gender;
   graduationLevel: GraduationLevel;
 }

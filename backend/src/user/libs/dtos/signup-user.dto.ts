@@ -12,7 +12,7 @@ export class SignUpUserDto {
   @IsString()
   birthDate: Date;
   @MinLength(8, { message: 'Password should not be less than 8 symbols' })
-  password: string;
+  passwordHash: string;
   @IsEnum(Gender)
   gender: Gender;
   @IsEnum(GraduationLevel)
