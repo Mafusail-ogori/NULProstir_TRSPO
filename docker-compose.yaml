@@ -8,6 +8,8 @@ services:
       - postgres
     env_file:
       - ./backend/.env
+    links:
+      - "postgres"
   frontend:
     build: ./frontend
     ports:
@@ -15,12 +17,18 @@ services:
   postgres:
     image: postgres:latest
     ports:
-      - 5432:5433
+      - 5433:5432
     volumes:
       - db_volume:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=admin
+      - POSTGRES_PASSWORD=Hajaomija123
       - POSTGRES_USER=postgres
       - POSTGRES_DB=nulprostir
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+
 volumes:
   db_volume:
