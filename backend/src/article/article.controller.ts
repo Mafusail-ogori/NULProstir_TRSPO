@@ -8,7 +8,8 @@ import {
   Delete,
   Put,
 } from '@nestjs/common';
-import { AuthUserGuard } from '../auth/guards/auth.guard';
+import { AuthUserGuard } from '../auth/guards/auth-user.guard';
+import { AuthCreatorGuard } from '../auth/guards/auth-creator.guard';
 import { CreateArticleDto } from './libs/dto/create-article.dto';
 import { ArticleService } from './article.service';
 import { DeleteArticleDto } from './libs/dto/delete-article.dto';
@@ -18,7 +19,7 @@ import { UpdateArticleDto } from './libs/dto/update-article.dto';
 export class ArticleController {
   constructor(private articleService: ArticleService) {}
 
-  @UseGuards(AuthUserGuard)
+  @UseGuards(AuthCreatorGuard)
   @Post('/create')
   create(@Body() createArticleDto: CreateArticleDto, @Request() request: any) {
     return this.articleService.create(createArticleDto, request.userId);
@@ -30,7 +31,7 @@ export class ArticleController {
     return this.articleService.findArticlesByUserId(request.userId);
   }
 
-  @UseGuards(AuthUserGuard)
+  @UseGuards(AuthCreatorGuard)
   @Delete('/delete-article-by-user-id')
   deleteArticleByUserId(
     @Body() deleteArticleDto: DeleteArticleDto,
@@ -42,7 +43,7 @@ export class ArticleController {
     );
   }
 
-  @UseGuards(AuthUserGuard)
+  @UseGuards(AuthCreatorGuard)
   @Put('/update-article-by-user-id')
   updateArticleByUserId(
     @Body() updateArticleDto: UpdateArticleDto,

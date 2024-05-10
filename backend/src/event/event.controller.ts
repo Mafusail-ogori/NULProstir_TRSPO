@@ -9,7 +9,7 @@ import {
   Request,
 } from '@nestjs/common';
 import { EventService } from './event.service';
-import { AuthUserGuard } from '../auth/guards/auth.guard';
+import { AuthUserGuard } from '../auth/guards/auth-user.guard';
 import { CreateEventDto } from './libs/dto/create-event.dto';
 import { DeleteEventDto } from './libs/dto/delete-event.dto';
 import { UpdateEventDto } from './libs/dto/update-event.dto';

@@ -12,6 +12,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Article } from './article.entity';
+import { TimeTableSubject } from '../../timetable/entities/timetable-subject.entity';
 
 @Entity()
 export class Lecturer {
@@ -34,4 +35,10 @@ export class Lecturer {
   lecturersSubjects: Subject[];
   @OneToMany(() => Article, (article: Article) => article.lecturer)
   articles: Article[];
+  @ManyToMany(
+    () => TimeTableSubject,
+    (timeTableSubject: TimeTableSubject) => timeTableSubject.lecturers,
+  )
+  @JoinTable({ name: 'lecturer_timetable' })
+  timeTableSubjects: TimeTableSubject[];
 }

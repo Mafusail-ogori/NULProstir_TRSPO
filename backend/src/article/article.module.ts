@@ -4,7 +4,8 @@ import { ArticleService } from './article.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Article } from './entities/article.entity';
 import { AuthModule } from '../auth/auth.module';
-import { AuthUserGuard } from '../auth/guards/auth.guard';
+import { AuthUserGuard } from '../auth/guards/auth-user.guard';
+import { AuthCreatorGuard } from '../auth/guards/auth-creator.guard';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Lecturer } from './entities/lecturer.entity';
@@ -28,6 +29,6 @@ import { Post } from './entities/post.entity';
     ConfigModule.forRoot(),
   ],
   controllers: [ArticleController],
-  providers: [ArticleService, AuthUserGuard],
+  providers: [ArticleService, AuthUserGuard, AuthCreatorGuard],
 })
 export class ArticleModule {}

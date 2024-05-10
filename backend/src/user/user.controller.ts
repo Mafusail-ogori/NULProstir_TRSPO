@@ -10,9 +10,10 @@ import {
 } from '@nestjs/common';
 import { SignUpUserDto } from './libs/dtos/signup-user.dto';
 import { UserService } from './user.service';
-import { AuthUserGuard } from '../auth/guards/auth.guard';
+import { AuthUserGuard } from '../auth/guards/auth-user.guard';
 import { DeleteUserDto } from './libs/dtos/delete-user.dto';
 import { UpdateUserDto } from './libs/dtos/update-user-dto';
+import { Role } from './libs/enums/user.role';
 
 @Controller('user')
 export class UserController {

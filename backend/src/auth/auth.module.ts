@@ -5,7 +5,10 @@ import { PassportModule } from '@nestjs/passport';
 import { UserModule } from '../user/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { AuthUserGuard } from './guards/auth.guard';
+import { AuthUserGuard } from './guards/auth-user.guard';
+import { AuthCreatorGuard } from './guards/auth-creator.guard';
+import { AuthModeratorGuard } from './guards/auth-moderator.guard';
+import { AuthAdminGuard } from './guards/auth-admin.guard';
 
 @Module({
   imports: [
@@ -22,7 +25,13 @@ import { AuthUserGuard } from './guards/auth.guard';
       inject: [ConfigService],
     }),
   ],
-  providers: [AuthService, AuthUserGuard],
+  providers: [
+    AuthService,
+    AuthUserGuard,
+    AuthCreatorGuard,
+    AuthModeratorGuard,
+    AuthAdminGuard,
+  ],
   controllers: [AuthController],
   exports: [AuthUserGuard],
 })

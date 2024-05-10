@@ -15,6 +15,8 @@ import { AuthModule } from './auth/auth.module';
 import { EventModule } from './event/event.module';
 import { Event } from './event/entities/event.entity';
 import { Post } from './article/entities/post.entity';
+import { TimetableModule } from './timetable/timetable.module';
+import { TimeTableSubject } from './timetable/entities/timetable-subject.entity';
 
 @Module({
   imports: [
@@ -42,12 +44,14 @@ import { Post } from './article/entities/post.entity';
           Post,
           Article,
           Subject,
+          TimeTableSubject,
         ],
       }),
       inject: [ConfigService],
     }),
     AuthModule,
     EventModule,
+    TimetableModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -15,7 +15,7 @@ export class AuthService {
     const passwordIsMatch = await argon2.verify(user.passwordHash, password);
     if (user && passwordIsMatch) {
       return {
-        token: this.jwtService.sign({ id: user.id, email: user.email }),
+        token: this.jwtService.sign({ id: user.id, email: user.email, role: user.role }),
       };
     }
     throw new UnauthorizedException('user or password are incorrect');
