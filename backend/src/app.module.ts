@@ -22,15 +22,19 @@ import { TimeTableSubject } from './timetable/entities/timetable-subject.entity'
   imports: [
     UserModule,
     ArticleModule,
+    AuthModule,
+    EventModule,
+    TimetableModule,
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        port: 5432,
-        username: 'postgres',
-        password: 'Hajaomija123',
-        database: 'nulprostir',
+        host: configService.get('DB_HOST'),
+        port: configService.get('DB_PORT'),
+        username: configService.get('DB_USERNAME'),
+        password: configService.get('DB_PASSWORD'),
+        database: configService.get('DB_NAME'),
         synchronize: true,
         entities: [
           Article,
@@ -48,9 +52,6 @@ import { TimeTableSubject } from './timetable/entities/timetable-subject.entity'
       }),
       inject: [ConfigService],
     }),
-    AuthModule,
-    EventModule,
-    TimetableModule,
   ],
   controllers: [AppController],
   providers: [AppService],

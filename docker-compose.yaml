@@ -5,11 +5,16 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     env_file:
       - ./backend/.env
     links:
       - "postgres"
+    networks:
+      - nulprostir_intranet
+    environment:
+      - DB_HOST=postgres
   frontend:
     build: ./frontend
     ports:
@@ -21,14 +26,25 @@ services:
     volumes:
       - db_volume:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=Hajaomija123
+      - POSTGRES_PASSWORD=admin
       - POSTGRES_USER=postgres
       - POSTGRES_DB=nulprostir
+    networks:
+      - nulprostir_intranet
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "db_prod"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 80s
   redis:
     image: redis:latest
     container_name: redis
     ports:
       - "6379:6379"
-
 volumes:
   db_volume:
+networks:
+  nulprostir_intranet:
+    name: impulse-auth-intranet
+    driver: bridge

@@ -9,8 +9,6 @@ async function bootstrap() {
       whitelist: true,
     }),
   );
-  await app.listen(8000, () => {
-    console.log(process.env);
-  });
+  await app.listen(8000);
 }
 bootstrap();
