@@ -1,0 +1,13 @@
+apiVersion: v1
+data:
+  DB_HOST: localhost
+  DB_NAME: nulprostir
+  DB_PASSWORD: Hajaomija123
+  DB_PORT: "5432"
+  DB_USERNAME: postgres
+  JWT_SECRET: zMgRy%4u%B+8.QJ?~MHs67fO
+kind: ConfigMap
+metadata:
+  labels:
+    io.kompose.service: backend-backend-env
+  name: backend-env

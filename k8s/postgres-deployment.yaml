@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: postgres
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: postgres
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.33.0 (3ce457399)
+      labels:
+        io.kompose.network/impulse-auth-intranet: "true"
+        io.kompose.service: postgres
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_DB
+              value: nulprostir
+            - name: POSTGRES_PASSWORD
+              value: Hajaomija123
+            - name: POSTGRES_USER
+              value: postgres
+          image: postgres:latest
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -d
+                - db_prod
+            failureThreshold: 5
+            initialDelaySeconds: 80
+            periodSeconds: 30
+            timeoutSeconds: 60
+          name: postgres
+          ports:
+            - containerPort: 5432
+              hostPort: 5433
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: db-volume
+      restartPolicy: Always
+      volumes:
+        - name: db-volume
+          persistentVolumeClaim:
+            claimName: db-volume
